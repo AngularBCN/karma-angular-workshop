@@ -5,7 +5,9 @@ describe('WebService behaviour', function() {
 
   describe('getSomeContent method', function() {
 
-    it('should get some content from the server', inject(function($httpBackend, WebService) {
+    it('should get some content from the server',
+      inject(function($httpBackend, WebService) {
+
       $httpBackend.expect('GET', '/some-content').respond({
         success: true,
         content: 'foobar',
