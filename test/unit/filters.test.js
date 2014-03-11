@@ -1,6 +1,6 @@
 describe("Unit: Testing Filters", function() {
 
-  beforeEach(module('my-app'));
+  beforeEach(angular.mock.module('my-app'));
 
   it('should have a range filter', inject(function($filter) {
     expect($filter('range')).not.toBe(null);
