@@ -13,7 +13,7 @@ describe('Notify service', function() {
     });
 
     inject(function(Notify) {
-      Notify('testing');
+      Notify.text('testing');
       expect(windowMock.alert).toHaveBeenCalledWith('testing');
     });
   });
