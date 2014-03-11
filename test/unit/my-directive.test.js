@@ -7,7 +7,11 @@ describe('wiki article directive', function() {
   }));
 
   it('should set scope "article" property to the target article',
-    inject(function($compile, $rootScope) {
+    inject(function($compile, $rootScope, $httpBackend) {
+
+    $httpBackend
+      .when('GET', 'https://en.wikipedia.org/wiki/The_Matrix')
+      .respond({ content: '' });
 
     var scope = $rootScope.$new();
 
@@ -15,6 +19,15 @@ describe('wiki article directive', function() {
     var compiled = $compile(element)
     var linkedElement = compiled(scope);
 
-
+    scope.$digest();
+    expect(scope.article).toBe('The_Matrix');
   }));
 });
+
+
+/*
+    $httpBackend.expect('GET', 'https://en.wikipedia.org/wiki/The_Matrix').respond({
+      success: true,
+      content: 'foobar',
+    });
+*/
