@@ -3,15 +3,15 @@ describe('wiki article directive', function() {
 
   beforeEach(module('my-app'));
   beforeEach(inject(function($templateCache) {
-    $templateCache.put('templates/wiki-article.html', '<div></div>');
+    $templateCache.put('templates/wiki-article.html', '{{ content }}');
   }));
 
-  it('should set scope "article" property to the target article',
+  it('should request the article defined on the "src" attribute',
     inject(function($compile, $rootScope, $httpBackend) {
 
     $httpBackend
-      .when('GET', 'https://en.wikipedia.org/wiki/The_Matrix')
-      .respond({ content: '' });
+      .expect('GET', 'https://en.wikipedia.org/wiki/The_Matrix')
+      .respond({ content: 'foobar' });
 
     var scope = $rootScope.$new();
 
@@ -20,14 +20,9 @@ describe('wiki article directive', function() {
     var linkedElement = compiled(scope);
 
     scope.$digest();
-    expect(scope.article).toBe('The_Matrix');
+    $httpBackend.flush();
+
+    var domElement = linkedElement[0];
+    expect(domElement.innerHTML).toBe('foobar');
   }));
 });
-
-
-/*
-    $httpBackend.expect('GET', 'https://en.wikipedia.org/wiki/The_Matrix').respond({
-      success: true,
-      content: 'foobar',
-    });
-*/

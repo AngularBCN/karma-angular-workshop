@@ -5,12 +5,9 @@ angular.module('my-app').directive('wikiArticle', function($http) {
     restrict: 'E',
     templateUrl: 'templates/wiki-article.html',
 
-    scope: {
-      article: '=src',
-    },
+    link: function(scope, elem, attr) {
 
-    link: function(scope, attr, elem) {
-      scope.$watch('article', function(value) {
+      attr.$observe('src', function(value) {
         $http({
           method: 'GET',
           url: 'https://en.wikipedia.org/wiki/' + value,
@@ -18,6 +15,7 @@ angular.module('my-app').directive('wikiArticle', function($http) {
           scope.content = response.data.content;
         });
       });
+
     },
   };
 });

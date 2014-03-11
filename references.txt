@@ -1,0 +1,2 @@
+http://nathanleclaire.com/blog/2013/12/13/how-to-unit-test-controllers-in-angularjs-without-setting-your-hair-on-fire/
+http://www.portlandwebworks.com/blog/testing-angularjs-directives-handling-external-templates
